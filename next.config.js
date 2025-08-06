@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // All the necessary deployment and optimization settings
-  // are handled automatically by Vercel.
-  // You can add other project-specific configurations here if you need them.
-};
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  images: {
+    unoptimized: true
+  },
+  distDir: 'out'
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
