@@ -155,7 +155,7 @@ const StreamingHub = () => {
     }
   };
 
-  const loadRealContent = async () => {
+  const loadRealContent = useCallback(async () => {
     if (!tmdbApiKey && !youtubeApiKey) return;
     
     setLoading(true);
@@ -178,7 +178,16 @@ const StreamingHub = () => {
       console.error('Error loading content:', error);
     }
     setLoading(false);
-  };
+  }, [tmdbApiKey, youtubeApiKey]); // Dependencies for useCallback
+
+  // === THIS IS THE ONLY CHANGE ===
+  // Automatically load content when API keys are detected from storage
+  useEffect(() => {
+    if (tmdbApiKey || youtubeApiKey) {
+      loadRealContent();
+    }
+  }, [tmdbApiKey, youtubeApiKey, loadRealContent]);
+  // === END OF CHANGE ===
 
   // File System Access API for local files
   const handleSelectLocalFolder = async () => {
@@ -377,7 +386,7 @@ const StreamingHub = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">
-            <h1 className="text-2xl font-bold text-white">StreamHub</h1>
+            <h1 className="text-2xl font-bold text-white">Kinsfolk Streaming Hub</h1>
             <div className="flex items-center space-x-6">
               <button 
                 onClick={() => setCurrentView('home')}
@@ -869,7 +878,7 @@ const StreamingHub = () => {
           <div className="text-center py-20 px-6">
             <div className="max-w-md mx-auto">
               <TrendingUp className="w-20 h-20 text-gray-600 mx-auto mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-4">Welcome to StreamHub!</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">Welcome to Kinsfolk Streaming Hub!</h3>
               <p className="text-gray-400 mb-8">
                 Your unified streaming experience starts here. Add your API keys to load real content from streaming platforms, or add local video files to get started.
               </p>

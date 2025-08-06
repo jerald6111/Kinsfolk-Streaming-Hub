@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'StreamHub - Unified Streaming Experience',
+  title: 'Kinsfolk Streaming Hub - Unified Streaming Experience',
   description: 'Apple TV-style streaming hub for all your content',
   manifest: '/manifest.json'
 }
